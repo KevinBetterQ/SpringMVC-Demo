@@ -6,8 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kwq.domain.User;
-import com.kwq.service.UserService;
+
+import com.kwq.form.ProductForm;
+
 
 /**
  * 功能概要：UserController
@@ -17,14 +18,37 @@ import com.kwq.service.UserService;
  */
 @Controller
 public class UserController {
-	@Resource
-	private UserService userService;
+
 	
-	@RequestMapping("/")  
-    public ModelAndView getIndex(){    
-		ModelAndView mav = new ModelAndView("index"); 
-		User user = userService.selectUserById(10);
-	    mav.addObject("user", user); 
+	@RequestMapping("/")
+	public ModelAndView getfirst(){
+		System.out.println("ssss");
+		ModelAndView mav = new ModelAndView("action");
+		return mav;  
+	}
+
+
+	@RequestMapping("/product_input")
+	public ModelAndView inputProduct(){    
+		ModelAndView mav = new ModelAndView("ProductForm"); 
         return mav;  
     }  
+	
+	@RequestMapping(value="/product_save")
+    public ModelAndView saveProduct(ProductForm product) {
+        /*Product product = new Product();
+        product.setName(productForm.getName());
+        product.setDescription(productForm.getDescription());
+        try {
+            product.setPrice(Float.parseFloat(
+                    productForm.getPrice()));
+        } catch (NumberFormatException e) {
+        }
+*/
+        ModelAndView mav = new ModelAndView("ProductDetails"); 
+	    mav.addObject("product", product); 
+        return mav;
+    }
+	
+	
 }
